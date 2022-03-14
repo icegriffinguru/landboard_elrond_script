@@ -8,3 +8,5 @@ export const MAX_GAS_PER_TRANSACTIONS = 600_000_000;
 export const DELAY_TIME = 5000;
 export const WHITELIST_FILE_PATH = './whitelist.csv';
 export const SC_ADDRESS = 'erd1qqqqqqqqqqqqqpgqphvuan5u023a9mtf6cryjwjff8lcafsq4dfqvklxpa';
+
+export const BATCH_SIZE = 300;

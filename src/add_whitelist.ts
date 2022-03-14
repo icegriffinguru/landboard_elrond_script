@@ -18,7 +18,8 @@ import {
     DELAY_TIME,
     WHITELIST_FILE_PATH,
     MAX_GAS_PER_TRANSACTIONS,
-    EXPLORER_URL
+    EXPLORER_URL,
+    BATCH_SIZE
 } from './config';
 import {
     sleep
@@ -59,7 +60,6 @@ const sendAddWhitelistTx = async (whitelist: string[]) => {
     const whitelist = readWhitelistFromFile();
     // await sendAddWhitelistTx(whitelist);
 
-    const BATCH_SIZE = 300;
     const len = whitelist.length;
     for (let i = 0; i < len; i += BATCH_SIZE) {
         const items = whitelist.slice(i, i + BATCH_SIZE);
