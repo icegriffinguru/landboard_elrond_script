@@ -17,7 +17,8 @@ import BigNumber from "@elrondnetwork/erdjs/node_modules/bignumber.js/bignumber.
 import {
     DELAY_TIME,
     WHITELIST_FILE_PATH,
-    MAX_GAS_PER_TRANSACTIONS
+    MAX_GAS_PER_TRANSACTIONS,
+    EXPLORER_URL
 } from './config';
 import {
     sleep
@@ -51,10 +52,19 @@ const sendAddWhitelistTx = async (whitelist: string[]) => {
     await signer.sign(tx);
     const txHash = await tx.send(provider);
     // console.log('Tx => ', tx);
-    console.log("Tx Hash => ", txHash.toString());
+    console.log(`${EXPLORER_URL}${txHash.toString()}`);
 }
 
 (async () => {
     const whitelist = readWhitelistFromFile();
-    await sendAddWhitelistTx(whitelist);
+    // await sendAddWhitelistTx(whitelist);
+
+    const BATCH_SIZE = 300;
+    const len = whitelist.length;
+    for (let i = 0; i < len; i += BATCH_SIZE) {
+        const items = whitelist.slice(i, i + BATCH_SIZE);
+        // console.log(items);
+        await sendAddWhitelistTx(items);
+        await sleep(DELAY_TIME);
+    }
 })();
